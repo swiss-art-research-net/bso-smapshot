@@ -8,6 +8,7 @@ from xml.dom.minidom import parseString
 from SmapshotConnector import SmapshotConnector
 
 configFile = './config.yml'
+lastUpdatedFile = './lastUpdated.log'
 
 try:
     with open(configFile, 'r') as f:
@@ -15,12 +16,18 @@ try:
 except:
     raise Exception("Could not load config file at", configFile)
 
+try: 
+    with open(lastUpdatedFile, 'r') as f:
+        lastUpdate = datetime.strptime(f.read(), "%Y-%m-%dT%H:%M:%SZ")
+except:
+    lastUpdate = datetime.fromtimestamp(0)
+
 currentTime = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
     
 smapshot = SmapshotConnector()
 
 # Retrieve list of images
-images = smapshot.listValidatedImages(config['lastUpdate'].strftime("%Y-%m-%dT%H:%M:%SZ"))
+images = smapshot.listValidatedImages(lastUpdate.strftime("%Y-%m-%dT%H:%M:%SZ"))
 
 # Retrieve details for images
 imageDetails = []
@@ -36,11 +43,5 @@ for image in imageDetails:
         f.write(dom.toprettyxml())
 
 # Update the last updated value in the config file
-with open(configFile, 'r') as f:
-    configRaw = f.read()
-
-pattern = r'(lastUpdate:\s*)(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z)'
-configRaw = re.sub(pattern, 'lastUpdate: '+ currentTime, configRaw)
-
-with open(configFile, 'w') as f:
-    f.write(configRaw)
+with open(lastUpdatedFile, 'w') as f:
+    f.write(currentTime)
