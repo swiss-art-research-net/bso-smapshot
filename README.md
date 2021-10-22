@@ -8,6 +8,11 @@ Implements a pipeline to retrieve [BSO](https://bso.swissartresearch.net) data f
   1. `cp .env.example .env`
 1. Run with `docker-compose up -d`
 
+To execute the pipeline, run:
+```
+bash run.sh
+```
+
 To download the data from smapshot, run:
 ```
 docker exec bso_smapshot python retrieve-smapshot-data.py
