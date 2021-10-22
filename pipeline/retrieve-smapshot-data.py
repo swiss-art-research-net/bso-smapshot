@@ -5,7 +5,7 @@ from dicttoxml import dicttoxml
 from os.path import join
 from tqdm import tqdm
 from xml.dom.minidom import parseString
-from SmapshotConnector import SmapshotConnector
+from lib.SmapshotConnector import SmapshotConnector
 
 configFile = './config.yml'
 lastUpdatedFile = './lastUpdated.log'
