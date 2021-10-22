@@ -1,0 +1,8 @@
+version: "3"
+services:
+  smapshot:
+    build: .
+    container_name: ${PROJECT_NAME}
+    volumes:
+      - ./data:/data
+      - ./pipeline:/pipeline
