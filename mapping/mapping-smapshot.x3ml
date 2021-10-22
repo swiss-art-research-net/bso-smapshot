@@ -1,0 +1,69 @@
+<x3ml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" source_type="xpath" version="1.0" xsi:noNamespaceSchemaLocation="x3ml_v1.4.xsd" editor="3MEditor v3.3">
+    <namespaces>
+        <namespace prefix="rdfs" uri="http://www.w3.org/2000/01/rdf-schema#"/>
+        <namespace prefix="xsd" uri="http://www.w3.org/2001/XMLSchema#"/>
+        <namespace prefix="crm" uri="http://www.cidoc-crm.org/cidoc-crm/"/>
+        <namespace prefix="crmdig" uri="http://www.ics.forth.gr/isl/CRMdig/"/>
+        <namespace prefix="pref" uri="http://bso.swissartresearch.net/id/"/>
+        <namespace prefix="gnd" uri="https://d-nb.info/gnd/"/>
+        <namespace prefix="ulan" uri="http://vocab.getty.edu/page/ulan/"/>
+        <namespace prefix="wikidata" uri="https://www.wikidata.org/wiki/"/>
+        <namespace prefix="skos" uri="http://www.w3.org/2004/02/skos/core#"/>
+        <namespace prefix="sari" uri="https://resource.swissartresearch.net/"/>
+        <namespace prefix="dcterms" uri="http://purl.org/dc/terms/" />
+        <namespace prefix="dc" uri="http://purl.org/dc/elements/1.1/" />
+        <namespace prefix="la" uri="https://linked.art/ns/terms/"/>
+        <namespace prefix="rso" uri="http://www.researchspace.org/ontology/" />
+        <namespace prefix="aat" uri="http://vocab.getty.edu/aat/" />
+        <namespace prefix="wd" uri="http://www.wikidata.org/entity/"/>
+    </namespaces>
+    <mappings>
+        <mapping>
+            <domain>
+                <source_node>/root/item</source_node>
+                <target_node>
+                    <entity>
+                        <type>crm:CRMsci/S7_Simulation_or_Prediction</type>
+                        <instance_generator name="URIwithTypeAndId">
+                            <arg name="type" type="constant">event</arg>
+                            <arg name="id" type="xpath">id/text()</arg>
+                        </instance_generator>
+                        <additional>
+                            <relationship>crm:P32_used_general_technique</relationship>
+                            <entity>
+                                <type>crm:E7_Activity</type>
+                                <instance_info>
+                                    <constant>smapshot</constant>
+                                </instance_info>
+                                <instance_generator name="URIorUUID">
+                                    <arg name="text" type="constant">https://smapshot.heig-vd.ch/</arg>
+                                </instance_generator>
+                            </entity>
+                        </additional>
+                    </entity>
+                </target_node>
+            </domain>
+            <link>
+                <path>
+                    <source_relation>
+                        <relation>media/tiles/url</relation>
+                    </source_relation>
+                    <target_relation>
+                        <relationship>crm:P16_used_specific_object</relationship>
+                    </target_relation>
+                </path>
+                <range>
+                    <source_node>media/tiles/url</source_node>
+                    <target_node>
+                        <entity>
+                            <type>crmdig:D1_Digital_Object</type>
+                            <instance_generator name="URIorUUID">
+                                <arg name="text" type="xpath">substring-before(text(), '/info.json')</arg>
+                            </instance_generator>
+                        </entity>
+                    </target_node>
+                </range>
+            </link>
+        </mapping>
+    </mappings>
+</x3ml>
