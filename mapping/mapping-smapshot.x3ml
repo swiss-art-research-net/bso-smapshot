@@ -16,6 +16,8 @@
         <namespace prefix="rso" uri="http://www.researchspace.org/ontology/" />
         <namespace prefix="aat" uri="http://vocab.getty.edu/aat/" />
         <namespace prefix="wd" uri="http://www.wikidata.org/entity/"/>
+        <namespace prefix="iqvoc" uri="https://iqvoc.swissartresearch.net/"/>
+        <namespace prefix="wgs84" uri="http://www.w3.org/2003/01/geo/wgs84_pos"/>
     </namespaces>
     <mappings>
         <mapping>
@@ -26,8 +28,12 @@
                         <type>crm:CRMsci/S7_Simulation_or_Prediction</type>
                         <instance_generator name="URIwithTypeAndId">
                             <arg name="type" type="constant">event</arg>
-                            <arg name="id" type="xpath">id/text()</arg>
+                            <arg name="id" type="xpath">concat('smapshot-', id/text())</arg>
                         </instance_generator>
+                        <label_generator name="Literal">
+                            <arg name="text" type="xpath">concat("Smapshot georeferencing of ", original_id/text()," performed by user ", georeferencer/username/text())</arg>
+                            <arg name="language" type="constant"/>
+                        </label_generator>
                         <additional>
                             <relationship>crm:P32_used_general_technique</relationship>
                             <entity>
@@ -59,6 +65,324 @@
                             <type>crmdig:D1_Digital_Object</type>
                             <instance_generator name="URIorUUID">
                                 <arg name="text" type="xpath">substring-before(text(), '/info.json')</arg>
+                            </instance_generator>
+                        </entity>
+                    </target_node>
+                </range>
+            </link>
+            <link>
+                <path>
+                    <source_relation>
+                        <relation>georeferencer</relation>
+                    </source_relation>
+                    <target_relation>
+                        <relationship>crm:P14_carried_out_by</relationship>
+                    </target_relation>
+                </path>
+                <range>
+                    <source_node>georeferencer</source_node>
+                    <target_node>
+                        <entity>
+                            <type>crm:E39_Actor</type>
+                            <instance_generator name="URIorUUID">
+                                <arg name="text" type="xpath">concat('https://smapshot.heig-vd.ch/user/',id/text())</arg>
+                            </instance_generator>
+                            <label_generator name="Literal">
+                                <arg name="text" type="xpath">username/text()</arg>
+                                <arg name="language" type="constant"/>
+                            </label_generator>
+                        </entity>
+                    </target_node>
+                </range>
+            </link>
+            <link>
+                <path>
+                    <source_relation>
+                        <relation>.</relation>
+                    </source_relation>
+                    <target_relation>
+                        <relationship>crm:P140_assigned_attribute_to</relationship>
+                    </target_relation>
+                </path>
+                <range>
+                    <source_node>.</source_node>
+                    <target_node>
+                        <entity variable="observation">
+                            <type>crm:CRMsci/S4_Observation</type>
+                            <instance_generator name="URIwithTypeSubtypeAndId">
+                                <arg name="type" type="constant">event</arg>
+                                <arg name="id" type="xpath">concat('smapshot-', id/text())</arg>
+                                <arg name="subtype" type="constant">observation</arg>
+                            </instance_generator>
+                        </entity>
+                    </target_node>
+                </range>
+            </link>
+        </mapping>
+        <mapping>
+            <domain>
+                <source_node>/root/item</source_node>
+                <target_node>
+                    <entity variable="observation">
+                        <type>crm:CRMsci/S4_Observation</type>
+                        <instance_generator name="URIwithTypeSubtypeAndId">
+                            <arg name="type" type="constant">event</arg>
+                            <arg name="id" type="xpath">concat('smapshot-', id/text())</arg>
+                            <arg name="subtype" type="constant">observation</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </domain>
+            <link>
+                <path>
+                    <source_relation>
+                        <relation>original_id</relation>
+                    </source_relation>
+                    <target_relation>
+                        <relationship>crm:P20_had_specific_purpose</relationship>
+                    </target_relation>
+                </path>
+                <range>
+                    <source_node>original_id</source_node>
+                    <target_node>
+                        <entity>
+                            <type>crm:E65_Creation</type>
+                            <instance_generator name="URIorUUID">
+                                <arg name="text" type="xpath">concat('https://resource.swissartresearch.net/artwork/', text(), '/creation')</arg>
+                            </instance_generator>
+                        </entity>
+                    </target_node>
+                </range>
+            </link>
+            <link>
+                <path>
+                    <source_relation>
+                        <relation>pose</relation>
+                    </source_relation>
+                    <target_relation>
+                        <relationship>crm:CRMsci/O8_observed</relationship>
+                        <entity>
+                            <type>crm:E27_Site</type>
+                            <instance_generator name="URIwithTypeSubtypeIdAnd1Level">
+                                <arg name="type" type="constant">event</arg>
+                                <arg name="id" type="xpath">concat('smapshot-', ../id/text())</arg>
+                                <arg name="subtype" type="constant">observation</arg>
+                                <arg name="level1" type="constant">site</arg>
+                            </instance_generator>
+                        </entity>
+                        <relationship>crm:P156_occupies</relationship>
+                    </target_relation>
+                </path>
+                <range>
+                    <source_node>pose</source_node>
+                    <target_node>
+                        <entity>
+                            <type>crm:E53_Place</type>
+                            <instance_generator name="URIwithTypeSubtypeIdAnd1Level">
+                                <arg name="type" type="constant">event</arg>
+                                <arg name="id" type="xpath">concat('smapshot-', ../id/text())</arg>
+                                <arg name="subtype" type="constant">observation</arg>
+                                <arg name="level1" type="constant">pose</arg>
+                            </instance_generator>
+                        </entity>
+                    </target_node>
+                </range>
+            </link>
+        </mapping>
+        <mapping>
+            <domain>
+                <source_node>/root/item/pose</source_node>
+                <target_node>
+                    <entity>
+                        <type>crm:E53_Place</type>
+                        <instance_generator name="URIwithTypeSubtypeIdAnd1Level">
+                            <arg name="type" type="constant">event</arg>
+                            <arg name="id" type="xpath">concat('smapshot-', ../id/text())</arg>
+                            <arg name="subtype" type="constant">observation</arg>
+                            <arg name="level1" type="constant">pose</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </domain>
+            <link>
+                <path>
+                    <source_relation>
+                        <relation>altitude</relation>
+                    </source_relation>
+                    <target_relation>
+                        <relationship>crm:P168_place_is_defined_by</relationship>
+                    </target_relation>
+                </path>
+                <range>
+                    <source_node>altitude</source_node>
+                    <target_node>
+                        <entity>
+                            <type>wgs84:altitude</type>
+                            <instance_generator name="typedLiteralGen">
+                                <arg name="text" type="xpath">text()</arg>
+                            </instance_generator>
+                        </entity>
+                    </target_node>
+                </range>
+            </link>
+            <link>
+                <path>
+                    <source_relation>
+                        <relation>latitude</relation>
+                    </source_relation>
+                    <target_relation>
+                        <relationship>crm:P168_place_is_defined_by</relationship>
+                    </target_relation>
+                </path>
+                <range>
+                    <source_node>latitude</source_node>
+                    <target_node>
+                        <entity>
+                            <type>wgs84:lat</type>
+                            <instance_generator name="typedLiteralGen">
+                                <arg name="text" type="xpath">text()</arg>
+                            </instance_generator>
+                        </entity>
+                    </target_node>
+                </range>
+            </link>
+            <link>
+                <path>
+                    <source_relation>
+                        <relation>longitude</relation>
+                    </source_relation>
+                    <target_relation>
+                        <relationship>crm:P168_place_is_defined_by</relationship>
+                    </target_relation>
+                </path>
+                <range>
+                    <source_node>longitude</source_node>
+                    <target_node>
+                        <entity>
+                            <type>wgs84:long</type>
+                            <instance_generator name="typedLiteralGen">
+                                <arg name="text" type="xpath">text()</arg>
+                            </instance_generator>
+                        </entity>
+                    </target_node>
+                </range>
+            </link>
+            <link>
+                <path>
+                    <source_relation>
+                        <relation>azimuth</relation>
+                    </source_relation>
+                    <target_relation>
+                        <relationship>crm:P168_place_is_defined_by</relationship>
+                    </target_relation>
+                </path>
+                <range>
+                    <source_node>azimuth</source_node>
+                    <target_node>
+                        <entity>
+                            <type>iqvoc:_b1ffacc3</type>
+                            <instance_generator name="typedLiteralGen">
+                                <arg name="text" type="xpath">text()</arg>
+                            </instance_generator>
+                        </entity>
+                    </target_node>
+                </range>
+            </link>
+            <link>
+                <path>
+                    <source_relation>
+                        <relation>tilt</relation>
+                    </source_relation>
+                    <target_relation>
+                        <relationship>crm:P168_place_is_defined_by</relationship>
+                    </target_relation>
+                </path>
+                <range>
+                    <source_node>tilt</source_node>
+                    <target_node>
+                        <entity>
+                            <type>iqvoc:_5a599e02</type>
+                            <instance_generator name="typedLiteralGen">
+                                <arg name="text" type="xpath">text()</arg>
+                            </instance_generator>
+                        </entity>
+                    </target_node>
+                </range>
+            </link>
+            <link>
+                <path>
+                    <source_relation>
+                        <relation>roll</relation>
+                    </source_relation>
+                    <target_relation>
+                        <relationship>crm:P168_place_is_defined_by</relationship>
+                    </target_relation>
+                </path>
+                <range>
+                    <source_node>roll</source_node>
+                    <target_node>
+                        <entity>
+                            <type>iqvoc:_34c66cc3</type>
+                            <instance_generator name="typedLiteralGen">
+                                <arg name="text" type="xpath">text()</arg>
+                            </instance_generator>
+                        </entity>
+                    </target_node>
+                </range>
+            </link>
+            <link>
+                <path>
+                    <source_relation>
+                        <relation>focal</relation>
+                    </source_relation>
+                    <target_relation>
+                        <relationship>crm:P168_place_is_defined_by</relationship>
+                    </target_relation>
+                </path>
+                <range>
+                    <source_node>focal</source_node>
+                    <target_node>
+                        <entity>
+                            <type>iqvoc:_408bb8dc</type>
+                            <instance_generator name="typedLiteralGen">
+                                <arg name="text" type="xpath">text()</arg>
+                            </instance_generator>
+                        </entity>
+                    </target_node>
+                </range>
+            </link>
+        </mapping>
+        <mapping>
+            <domain>
+                <source_node>/root/item/original_id</source_node>
+                <target_node>
+                    <entity>
+                        <type>crm:E36_Visual_Item</type>
+                        <instance_generator name="URIorUUID">
+                            <arg name="text" type="xpath">concat('https://resource.swissartresearch.net/artwork/', text(), '/work')</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </domain>
+            <link>
+                <path>
+                    <source_relation>
+                        <relation>../pose</relation>
+                    </source_relation>
+                    <target_relation>
+                        <relationship>crm:P138_represents</relationship>
+                    </target_relation>
+                </path>
+                <range>
+                    <source_node>../pose</source_node>
+                    <target_node>
+                        <entity>
+                            <type>crm:E53_Place</type>
+                            <instance_generator name="URIwithTypeSubtypeIdAnd1Level">
+                                <arg name="type" type="constant">event</arg>
+                                <arg name="id" type="xpath">concat('smapshot-', ../id/text())</arg>
+                                <arg name="subtype" type="constant">observation</arg>
+                                <arg name="level1" type="constant">pose</arg>
                             </instance_generator>
                         </entity>
                     </target_node>
