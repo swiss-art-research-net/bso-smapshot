@@ -1,6 +1,8 @@
 *.log
 .env
-data/*.xml
+data/ttl/
+data/xml/
 notebooks/
 __pycache__
 docker-compose.override.yml
+pipeline/.task

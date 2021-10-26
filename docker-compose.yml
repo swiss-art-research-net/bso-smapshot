@@ -5,4 +5,5 @@ services:
     container_name: ${PROJECT_NAME}
     volumes:
       - ./data:/data
+      - ./mapping:/mapping
       - ./pipeline:/pipeline

@@ -1,7 +1,7 @@
 ### Configuration
 
 # Output folder for XML files
-outputFolder: ../data
+outputFolder: ../data/xml
 
 # Attribute to use for naming files
 filenameKey: original_id

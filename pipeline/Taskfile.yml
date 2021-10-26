@@ -1,0 +1,23 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GENERATOR_POLICY: /mapping/generator-policy.xml
+
+tasks:
+  perform-mapping:
+    desc: Map Smapshot XML data to CIDOC/RDF
+    vars:
+      INPUT_FOLDER: /data/xml
+      OUTPUT_FOLDER: /data/ttl
+      MAPPING_FILE: /mapping/mapping-smapshot.x3ml
+      BATCHSIZE: 2
+    sources:
+      - /data/xml/*.xml
+      - /mapping/mapping-smapshot.x3ml
+    generates:
+      - /ttl/*.ttl
+    cmds:
+      - rm -f {{.OUTPUT_FOLDER}}/*.ttl
+      - bash /pipeline/performMapping.sh -i {{.INPUT_FOLDER}} -o {{.OUTPUT_FOLDER}} -m {{.MAPPING_FILE}} -g {{.GENERATOR_POLICY}} -b {{.BATCHSIZE}}
