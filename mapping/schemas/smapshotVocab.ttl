@@ -1,0 +1,72 @@
+
+<https://iqvoc.swissartresearch.net/_34c66cc3> a <http://www.w3.org/2004/02/skos/core#Concept>;
+  <http://www.w3.org/2004/02/skos/core#broader> <https://iqvoc.swissartresearch.net/_b8a1a041>;
+  <http://www.w3.org/2004/02/skos/core#changeNote> _:genid-4b42b8ab55d64833a00abc249837f553-t260575;
+  <http://www.w3.org/2004/02/skos/core#inScheme> <https://iqvoc.swissartresearch.net/scheme>;
+  <http://www.w3.org/2004/02/skos/core#prefLabel> "roll"@en .
+
+<https://iqvoc.swissartresearch.net/_3a218db9> a <http://www.w3.org/2004/02/skos/core#Concept>;
+  <http://www.w3.org/2004/02/skos/core#broader> <https://iqvoc.swissartresearch.net/_b8a1a041>;
+  <http://www.w3.org/2004/02/skos/core#changeNote> _:genid-4b42b8ab55d64833a00abc249837f553-t260565,
+    _:genid-4b42b8ab55d64833a00abc249837f553-t260566;
+  <http://www.w3.org/2004/02/skos/core#closeMatch> <http://www.wikidata.org/entity/Q190200>,
+    <https://d-nb.info/gnd/7602389-8>;
+  <http://www.w3.org/2004/02/skos/core#exactMatch> <http://www.w3.org/2003/01/geo/wgs84_pos#altitude>;
+  <http://www.w3.org/2004/02/skos/core#inScheme> <https://iqvoc.swissartresearch.net/scheme>;
+  <http://www.w3.org/2004/02/skos/core#prefLabel> "altitude"@en .
+
+<https://iqvoc.swissartresearch.net/_408bb8dc> a <http://www.w3.org/2004/02/skos/core#Concept>;
+  <http://www.w3.org/2004/02/skos/core#broader> <https://iqvoc.swissartresearch.net/_b8a1a041>;
+  <http://www.w3.org/2004/02/skos/core#changeNote> _:genid-4b42b8ab55d64833a00abc249837f553-t260576;
+  <http://www.w3.org/2004/02/skos/core#inScheme> <https://iqvoc.swissartresearch.net/scheme>;
+  <http://www.w3.org/2004/02/skos/core#prefLabel> "focal"@en .
+
+<https://iqvoc.swissartresearch.net/_5a599e02> a <http://www.w3.org/2004/02/skos/core#Concept>;
+  <http://www.w3.org/2004/02/skos/core#broader> <https://iqvoc.swissartresearch.net/_b8a1a041>;
+  <http://www.w3.org/2004/02/skos/core#changeNote> _:genid-4b42b8ab55d64833a00abc249837f553-t260574;
+  <http://www.w3.org/2004/02/skos/core#inScheme> <https://iqvoc.swissartresearch.net/scheme>;
+  <http://www.w3.org/2004/02/skos/core#prefLabel> "tilt"@en .
+
+<https://iqvoc.swissartresearch.net/_78662276> a <http://www.w3.org/2004/02/skos/core#Concept>;
+  <http://www.w3.org/2004/02/skos/core#narrower> <https://iqvoc.swissartresearch.net/_b8a1a041>;
+  <http://www.w3.org/2004/02/skos/core#changeNote> _:genid-4b42b8ab55d64833a00abc249837f553-t260562;
+  <http://www.w3.org/2004/02/skos/core#definition> "A vocabulary of terms based on the data obtained from the Smapshot API"@en;
+  <http://www.w3.org/2004/02/skos/core#inScheme> <https://iqvoc.swissartresearch.net/scheme>;
+  <http://www.w3.org/2004/02/skos/core#prefLabel> "BSO Smapshot"@en;
+  <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://iqvoc.swissartresearch.net/scheme> .
+
+<https://iqvoc.swissartresearch.net/_7de69165> a <http://www.w3.org/2004/02/skos/core#Concept>;
+  <http://www.w3.org/2004/02/skos/core#broader> <https://iqvoc.swissartresearch.net/_b8a1a041>;
+  <http://www.w3.org/2004/02/skos/core#changeNote> _:genid-4b42b8ab55d64833a00abc249837f553-t260567,
+    _:genid-4b42b8ab55d64833a00abc249837f553-t260568, _:genid-4b42b8ab55d64833a00abc249837f553-t260570;
+  <http://www.w3.org/2004/02/skos/core#exactMatch> <http://www.w3.org/2003/01/geo/wgs84_pos#lat>,
+    <http://www.wikidata.org/entity/Q34027>, <https://d-nb.info/gnd/4020220-3>;
+  <http://www.w3.org/2004/02/skos/core#inScheme> <https://iqvoc.swissartresearch.net/scheme>;
+  <http://www.w3.org/2004/02/skos/core#prefLabel> "latitude"@en .
+
+<https://iqvoc.swissartresearch.net/_9a730f9c> a <http://www.w3.org/2004/02/skos/core#Concept>;
+  <http://www.w3.org/2004/02/skos/core#broader> <https://iqvoc.swissartresearch.net/_b8a1a041>;
+  <http://www.w3.org/2004/02/skos/core#changeNote> _:genid-4b42b8ab55d64833a00abc249837f553-t260571,
+    _:genid-4b42b8ab55d64833a00abc249837f553-t260572, _:genid-4b42b8ab55d64833a00abc249837f553-t260573;
+  <http://www.w3.org/2004/02/skos/core#exactMatch> <http://www.w3.org/2003/01/geo/wgs84_pos#long>,
+    <http://www.wikidata.org/entity/Q36477>, <https://d-nb.info/gnd/4020221-5>;
+  <http://www.w3.org/2004/02/skos/core#inScheme> <https://iqvoc.swissartresearch.net/scheme>;
+  <http://www.w3.org/2004/02/skos/core#prefLabel> "longitude"@en .
+
+<https://iqvoc.swissartresearch.net/_b1ffacc3> a <http://www.w3.org/2004/02/skos/core#Concept>;
+  <http://www.w3.org/2004/02/skos/core#broader> <https://iqvoc.swissartresearch.net/_b8a1a041>;
+  <http://www.w3.org/2004/02/skos/core#changeNote> _:genid-4b42b8ab55d64833a00abc249837f553-t260564;
+  <http://www.w3.org/2004/02/skos/core#exactMatch> <http://www.wikidata.org/entity/Q124274>,
+    <https://d-nb.info/gnd/4477810-7>;
+  <http://www.w3.org/2004/02/skos/core#inScheme> <https://iqvoc.swissartresearch.net/scheme>;
+  <http://www.w3.org/2004/02/skos/core#prefLabel> "azimuth"@en .
+
+<https://iqvoc.swissartresearch.net/_b8a1a041> a <http://www.w3.org/2004/02/skos/core#Concept>;
+  <http://www.w3.org/2004/02/skos/core#narrower> <https://iqvoc.swissartresearch.net/_34c66cc3>,
+    <https://iqvoc.swissartresearch.net/_3a218db9>, <https://iqvoc.swissartresearch.net/_408bb8dc>,
+    <https://iqvoc.swissartresearch.net/_5a599e02>, <https://iqvoc.swissartresearch.net/_7de69165>,
+    <https://iqvoc.swissartresearch.net/_9a730f9c>, <https://iqvoc.swissartresearch.net/_b1ffacc3>;
+  <http://www.w3.org/2004/02/skos/core#broader> <https://iqvoc.swissartresearch.net/_78662276>;
+  <http://www.w3.org/2004/02/skos/core#changeNote> _:genid-4b42b8ab55d64833a00abc249837f553-t260563;
+  <http://www.w3.org/2004/02/skos/core#inScheme> <https://iqvoc.swissartresearch.net/scheme>;
+  <http://www.w3.org/2004/02/skos/core#prefLabel> "pose"@en .
