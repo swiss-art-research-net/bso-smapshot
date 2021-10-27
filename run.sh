@@ -1,3 +1,3 @@
 source .env
 
-docker exec $PROJECT_NAME python retrieve-smapshot-data.py 
+docker exec $PROJECT_NAME task run
