@@ -145,7 +145,7 @@
                 <range>
                     <source_node>original_id</source_node>
                     <target_node>
-                        <entity>
+                        <entity variable="creation">
                             <type>crm:E65_Creation</type>
                             <instance_generator name="URIorUUID">
                                 <arg name="text" type="xpath">concat('https://resource.swissartresearch.net/artwork/', text(), '/creation')</arg>
@@ -356,7 +356,7 @@
             <domain>
                 <source_node>/root/item/original_id</source_node>
                 <target_node>
-                    <entity>
+                    <entity variable="work">
                         <type>crm:E36_Visual_Item</type>
                         <instance_generator name="URIorUUID">
                             <arg name="text" type="xpath">concat('https://resource.swissartresearch.net/artwork/', text(), '/work')</arg>
