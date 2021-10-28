@@ -2,6 +2,7 @@ version: "3"
 services:
   smapshot:
     build: .
+    image: swissartresearx/bso-smapshot
     container_name: ${PROJECT_NAME}
     volumes:
       - ./data:/data
