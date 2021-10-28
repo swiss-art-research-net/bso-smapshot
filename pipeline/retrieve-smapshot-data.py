@@ -36,7 +36,7 @@ for image in tqdm(images):
 
 # Write image data to individual files
 for image in imageDetails:
-    filename = join(config['outputFolder'], str(image[config['filenameKey']]) + '.xml')
+    filename = join(config['vars']['outputFolder'], str(image[config['vars']['filenameKey']]) + '.xml')
     xml = dicttoxml([image], attr_type=False)
     dom = parseString(xml)
     with open(filename, 'w') as f:
