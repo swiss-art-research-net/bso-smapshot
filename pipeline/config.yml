@@ -1,15 +1,6 @@
-### Configuration
-version: '3'
+# Output folder for XML files
+outputFolder: ../data/xml
 
-vars:
-  # Output folder for XML files
-  outputFolder: ../data/xml
+# Attribute to use for naming files
+filenameKey: original_id
 
-  # Attribute to use for naming files
-  filenameKey: original_id
-
-  # Platform configuration for ingest
-  endpoint: http://platform:8080/rdf-graph-store
-  graph: https://resource.swissartresearch.net/graph/smapshot
-  username: admin
-  password: admin

@@ -8,3 +8,4 @@ services:
       - ./data:/data
       - ./mapping:/mapping
       - ./pipeline:/pipeline
+      - ./.env:/dotenv/.env

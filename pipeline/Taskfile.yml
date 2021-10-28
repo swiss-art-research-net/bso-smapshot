@@ -5,8 +5,7 @@ version: '3'
 vars:
   GENERATOR_POLICY: /mapping/generator-policy.xml
 
-includes:
-  config: ./config.yml
+dotenv: ['/dotenv/.env']
 
 tasks:
   run:
@@ -25,9 +24,9 @@ tasks:
       - /data/ttl/*.ttl
     cmds:
       - |
-        GRAPHURLENCODE=$(echo $(echo "{{.graph}}" | sed "s/:/%3A/g") | sed "s/\//%2F/g")
+        GRAPHURLENCODE=$(echo $(echo "$GRAPH" | sed "s/:/%3A/g") | sed "s/\//%2F/g")
         cat {{.TTL_FOLDER}}/*.ttl > {{.TEMP_FOLDER}}/ingest.ttl
-        curl --silent -v -u {{.username}}:{{.password}} -X PUT -H "Content-Type: text/turtle" --data-binary "@{{.TEMP_FOLDER}}/ingest.ttl" {{.endpoint}}?graph=$GRAPHURLENCODE > /dev/null
+        curl --silent -v -u $USERNAME:$PASSWORD -X PUT -H "Content-Type: text/turtle" --data-binary "@{{.TEMP_FOLDER}}/ingest.ttl" $ENDPOINT?graph=$GRAPHURLENCODE > /dev/null
         rm {{.TEMP_FOLDER}}/ingest.ttl
         
 
