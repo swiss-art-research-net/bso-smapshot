@@ -13,6 +13,21 @@ tasks:
     - task: prepare-mapping
     - task: perform-mapping
 
+  ingest:
+    vars:
+      GRAPH: https://resource.swissartresearch.net/graph/smapshot
+      ENDPOINT: http://platform:8080/rdf-graph-store
+      USERNAME: admin
+      PASSWORD: admin
+      TTL_FOLDER: /data/ttl
+    cmds:
+      - |
+        GRAPHURLENCODE=$(echo $(echo "{{.GRAPH}}" | sed "s/:/%3A/g") | sed "s/\//%2F/g")
+        curl -v -u {{.USERNAME}}:{{.PASSWORD}} -X DELETE {{.ENDPOINT}}?graph=$GRAPHURLENCODE
+        for f in $(ls {{.TTL_FOLDER}}/*.ttl); do
+          curl -v -u {{.USERNAME}}:{{.PASSWORD}} -X PUT -H "Content-Type: text/turtle" --data-binary "@$f" {{.ENDPOINT}}?graph=$GRAPHURLENCODE
+        done
+
   retrieve-data:
     desc: Download the detailed data for all validated images in the SARI/BSO collection into the `/data` folder. The data is converted to XML for later mapping using the X3ML Mapping Engine.
     cmds:
