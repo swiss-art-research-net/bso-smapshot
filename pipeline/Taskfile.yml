@@ -6,6 +6,7 @@ vars:
   GENERATOR_POLICY: /mapping/generator-policy.xml
 
 tasks:
+  desc: Run entire pipeline
   run:
     cmds:
     - task: retrieve-data
