@@ -13,10 +13,12 @@ tasks:
     - task: perform-mapping
 
   retrieve-data:
+    desc: Download the detailed data for all validated images in the SARI/BSO collection into the `/data` folder. The data is converted to XML for later mapping using the X3ML Mapping Engine.
     cmds:
       - python retrieve-smapshot-data.py
 
   prepare-mapping:
+    desc: Compare the retrieved XML files with the mapped TTL files and copy all unconverted XML files to a temporary folder.
     vars:
       INPUT_FOLDER: /data/xml
       OUTPUT_FOLDER: /data/ttl
@@ -33,7 +35,7 @@ tasks:
         done
 
   perform-mapping:
-    desc: Map Smapshot XML data to CIDOC/RDF
+    desc: Map Smapshot XML data in the temporary folder to CIDOC/RDF
     vars:
       INPUT_FOLDER: /data/temp
       OUTPUT_FOLDER: /data/ttl
