@@ -5,12 +5,12 @@ Implements a pipeline to retrieve [BSO](https://bso.swissartresearch.net) data f
 ## Usage
 
 1. Copy the provided `.env.example` file
-  1. `cp .env.example .env`
+    * `cp .env.example .env`
 1. Edit the `.env` file:
-  1. `ENDPOINT`: SPARQL Graph store endpoint for data ingest
-  1. `GRAPH`: Named graph used for ingesting data
-  1. `USERNAME`: Username of endpoint with permissions to edit specified graph
-  1. `PASSWORD`: Password of endpoint with permissions to edit specified graph
+    * `ENDPOINT`: SPARQL Graph Store endpoint for data ingest
+    * `GRAPH`: Named graph used for ingesting data
+    * `USERNAME`: Username of endpoint with permissions to edit specified graph
+    * `PASSWORD`: Password of endpoint with permissions to edit specified graph
 1. Run with `docker-compose up -d`
 
 To execute the pipeline, run:
@@ -48,7 +48,7 @@ docker exec bso_smapshot task retrieve-data
 
 ### Configure backend
 
-The ingest step sends the data to a [RDF Graph Store](https://www.w3.org/TR/sparql11-http-rdf-update/) backend. The [Metaphacts](https://bitbucket.org/metaphacts/metaphacts-community/src/master/) and [ResearchSpace](http://researchspace.org) platforms both implement the API.
+The ingest step sends the data to a [RDF Graph Store](https://www.w3.org/TR/sparql11-http-rdf-update/) backend. The [Metaphacts](https://bitbucket.org/metaphacts/metaphacts-community/src/master/) and [ResearchSpace](http://researchspace.org) platforms both implement the Graph Store protocol.
 
 For security reasons, it's best to create a new user on the platform that has only access to the required operation and named graph. For MP and RS, create or edit the `shiro-roles.ini` and add a role with permissions for the named graph where the data will be pushed to. The name of the role can be chosen at will. 
 
