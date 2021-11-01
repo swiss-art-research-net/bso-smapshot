@@ -46,6 +46,7 @@ tasks:
       TEMP_FOLDER: /data/temp
     sources:
       - /data/xml/*.xml
+      - /data/ttl/*.ttl
     cmds:
       - rm -rf {{.TEMP_FOLDER}}
       - mkdir -p {{.TEMP_FOLDER}}
