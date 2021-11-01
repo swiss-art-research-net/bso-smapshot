@@ -23,6 +23,7 @@ tasks:
       TEMP_FOLDER: /data/temp
     sources:
       - /data/ttl/*.ttl
+      - /dotenv/.env
     cmds:
       - |
         echo "Ingesting data into <$GRAPH> on $ENDPOINT"

@@ -1,6 +1,0 @@
-# Output folder for XML files
-outputFolder: ../data/xml
-
-# Attribute to use for naming files
-filenameKey: original_id
-

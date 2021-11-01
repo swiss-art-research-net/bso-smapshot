@@ -7,14 +7,11 @@ from tqdm import tqdm
 from xml.dom.minidom import parseString
 from lib.SmapshotConnector import SmapshotConnector
 
-configFile = './config.yml'
+config = {
+    'outputFolder': '../data/xml',
+    'filenameKey': 'original_id'
+}
 lastUpdatedFile = './lastUpdated.log'
-
-try:
-    with open(configFile, 'r') as f:
-        config = yaml.safe_load(f)
-except:
-    raise Exception("Could not load config file at", configFile)
 
 try: 
     with open(lastUpdatedFile, 'r') as f:
@@ -42,6 +39,6 @@ for image in imageDetails:
     with open(filename, 'w') as f:
         f.write(dom.toprettyxml())
 
-# Update the last updated value in the config file
+# Update the last updated value
 with open(lastUpdatedFile, 'w') as f:
     f.write(currentTime)
