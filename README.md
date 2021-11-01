@@ -29,9 +29,11 @@ docker exec bso_smapshot task --list
 The command will output the list of tasks:
 ```
 task: Available tasks for this project:
+* ingest:               Ingest the data into a named graph via the specified SPARQL Graph Store endpoint
 * perform-mapping:      Map Smapshot XML data in the temporary folder to CIDOC/RDF
 * prepare-mapping:      Compare the retrieved XML files with the mapped TTL files and copy all unconverted XML files to a temporary folder.
 * retrieve-data:        Download the detailed data for all validated images in the SARI/BSO collection into the `/data` folder. The data is converted to XML for later mapping using the X3ML Mapping Engine.
+* run:                  Run entire pipeline
 ```
 
 Run a given task as follows:
@@ -41,7 +43,7 @@ docker exec bso_smapshot task <task name>
 e.g.
 
 ```
-docker exec bso_smapshot task retrieve0data
+docker exec bso_smapshot task retrieve-data
 ```
 
 ### Configure backend

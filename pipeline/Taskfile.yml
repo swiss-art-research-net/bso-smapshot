@@ -17,6 +17,7 @@ tasks:
     - task: ingest
 
   ingest:
+    desc: Ingest the data into a named graph via the specified SPARQL Graph Store endpoint
     vars:
       TTL_FOLDER: /data/ttl
       TEMP_FOLDER: /data/temp
