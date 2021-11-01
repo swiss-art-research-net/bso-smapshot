@@ -24,9 +24,10 @@ tasks:
       - /data/ttl/*.ttl
     cmds:
       - |
+        echo "Ingesting data into <$GRAPH> on $ENDPOINT"
         GRAPHURLENCODE=$(echo $(echo "$GRAPH" | sed "s/:/%3A/g") | sed "s/\//%2F/g")
         cat {{.TTL_FOLDER}}/*.ttl > {{.TEMP_FOLDER}}/ingest.ttl
-        curl --silent -v -u $USERNAME:$PASSWORD -X PUT -H "Content-Type: text/turtle" --data-binary "@{{.TEMP_FOLDER}}/ingest.ttl" $ENDPOINT?graph=$GRAPHURLENCODE > /dev/null
+        curl -u "$USERNAME:$PASSWORD" -X PUT -H "Content-Type: text/turtle" --data-binary "@{{.TEMP_FOLDER}}/ingest.ttl" $ENDPOINT?graph=$GRAPHURLENCODE
         rm {{.TEMP_FOLDER}}/ingest.ttl
         
 
