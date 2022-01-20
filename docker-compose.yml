@@ -4,6 +4,7 @@ services:
     build: .
     image: swissartresearx/bso-smapshot
     container_name: ${PROJECT_NAME}
+    restart: always
     volumes:
       - ./data:/data
       - ./mapping:/mapping
