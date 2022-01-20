@@ -62,9 +62,10 @@ with open(config['imageMetaDataFile'], 'r') as f:
 svgTemplate = Template("""<svg xmlns='http://www.w3.org/2000/svg'><path xmlns=\\"http://www.w3.org/2000/svg\\" d=\\"M${x0},${y0}l${halfW},0l0,0l${halfW},0l 0,${halfH}l 0,${halfH}l -${halfW},0l -${halfW},0l 0,-${halfH}z\\" data-paper-data=\\"{&quot;defaultStrokeValue&quot;:1,&quot;editStrokeValue&quot;:5,&quot;currentStrokeValue&quot;:1,&quot;rotation&quot;:0,&quot;deleteIcon&quot;:null,&quot;rotationIcon&quot;:null,&quot;group&quot;:null,&quot;editable&quot;:true,&quot;annotation&quot;:null}\\" id=\\"rectangle_e880ad36-1fef-4ce3-835d-716ba7db628a\\" fill-opacity=\\"0\\" fill=\\"#00bfff\\" fill-rule=\\"nonzero\\" stroke=\\"#00bfff\\" stroke-width=\\"4.04992\\" stroke-linecap=\\"butt\\" stroke-linejoin=\\"miter\\" stroke-miterlimit=\\"10\\" stroke-dasharray=\\"\\" stroke-dashoffset=\\"0\\" font-family=\\"none\\" font-weight=\\"none\\" font-size=\\"none\\" text-anchor=\\"none\\" style=\\"mix-blend-mode: normal\\"/></svg>""")
 
 for observation in observations:
+    iiifUrl = observation['image']['media']['tiles']['url'][:-10]
+    observation['iiifUrl'] = iiifUrl
     if observation['coord_x']:
-        iiifUrl = imageMetaDataKeys[observation['image']['media']['tiles']['url'][:-10]]
-        imageData = imageMetaData[iiifUrl]
+        imageData = imageMetaData[imageMetaDataKeys[iiifUrl]]
         coordinates_pixel = {
             'x': int(float(observation['coord_x']) * imageData['width']),
             'y': int(float(observation['coord_y']) * imageData['height']),
