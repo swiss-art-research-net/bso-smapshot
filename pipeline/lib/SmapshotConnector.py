@@ -25,6 +25,21 @@ class SmapshotConnector:
         except:
             return False
         return r.json()
+    
+    def _listObservations(self, limit, offset=0, additionalParams={}):
+        url = self.apiPath("/observations")
+        params = {
+            'owner_id': self.OWNER_ID, 
+            'limit': limit, 
+            'offset': offset
+        }
+        for key in additionalParams:
+            params[key] = additionalParams[key]
+        try:
+            r = requests.get(url=url, params=params)
+        except:
+            return False
+        return r.json()
         
     def apiPath(self, path):
         return self.API_URL + path
@@ -54,6 +69,23 @@ class SmapshotConnector:
             
         return images
 
+    def listObservations(self,additionalParams = {}):
+        """
+        Retrieves the observations for a given collection owner. 
+        """
+        offset = 0
+
+        return self._listObservations(999999, 0, additionalParams)
+
+    def listValidatedObservations(self, validatedAfterDate=False):
+        """
+        Retrieves the validated observations for a given collection owner. 
+        """
+        additionalParams = {}
+        if validatedAfterDate:
+            additionalParams['date_validated_min'] = str(validatedAfterDate)
+        return self.listObservations(additionalParams)
+        
     def listValidatedImages(self, validatedAfterDate=False):
         """
         Retrieves the valitated images for a given collection owner. Defaults to collection owner 3 (SARI)
