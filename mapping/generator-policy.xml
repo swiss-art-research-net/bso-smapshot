@@ -7,6 +7,22 @@
 		</custom>
 	</generator>
 
+	<generator name="ObservationUri" prefix="sari">
+		<pattern>smapshot/observation/{id}</pattern>
+	</generator>
+
+	<generator name="ObservationCreationUri" prefix="sari">
+		<pattern>smapshot/observation/{id}/creation</pattern>
+	</generator>
+
+	<generator name="ObservationCreationDateUri" prefix="sari">
+		<pattern>smapshot/observation/{id}/creation/date</pattern>
+	</generator>
+
+	<generator name="ObservationRegionUri" prefix="sari">
+		<pattern>smapshot/observation/{id}/region</pattern>
+	</generator>
+
 	<generator name="coordinates">
 		<pattern>POINT({lat} {long})</pattern>
 	</generator>

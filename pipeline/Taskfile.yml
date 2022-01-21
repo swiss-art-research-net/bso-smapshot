@@ -14,23 +14,43 @@ tasks:
     - task: retrieve-data
     - task: prepare-image-mapping
     - task: perform-image-mapping
+    - task: prepare-observation-mapping
+    - task: perform-observation-mapping
     - task: ingest-images
+    - task: ingest-observations
+
+  ingest-data:
+    cmds:
+      - |
+        echo "Ingesting data into <${{.GRAPH}}> on $ENDPOINT"
+        GRAPHURLENCODE=$(echo $(echo ${{.GRAPH}} | sed "s/:/%3A/g") | sed "s/\//%2F/g")
+        cat {{.TTL_FOLDER}}/*.ttl > {{.TEMP_FOLDER}}/ingest.ttl
+        curl -u "$USERNAME:$PASSWORD" -X PUT -H "Content-Type: text/turtle" --data-binary "@{{.TEMP_FOLDER}}/ingest.ttl" $ENDPOINT?graph=$GRAPHURLENCODE
+        rm {{.TEMP_FOLDER}}/ingest.ttl
 
   ingest-images:
-    desc: Ingest image the data into a named graph via the specified SPARQL Graph Store endpoint
-    vars:
-      TTL_FOLDER: /data/ttl/images
-      TEMP_FOLDER: /data/temp
+    desc: Ingest the image data into a named graph via the specified SPARQL Graph Store endpoint
     sources:
       - /data/ttl/images/*.ttl
       - /dotenv/.env
     cmds:
-      - |
-        echo "Ingesting data into <$GRAPH> on $ENDPOINT"
-        GRAPHURLENCODE=$(echo $(echo "$GRAPH" | sed "s/:/%3A/g") | sed "s/\//%2F/g")
-        cat {{.TTL_FOLDER}}/*.ttl > {{.TEMP_FOLDER}}/image-ingest.ttl
-        curl -u "$USERNAME:$PASSWORD" -X PUT -H "Content-Type: text/turtle" --data-binary "@{{.TEMP_FOLDER}}/image-ingest.ttl" $ENDPOINT?graph=$GRAPHURLENCODE
-        rm {{.TEMP_FOLDER}}/image-ingest.ttl
+      - task: ingest-data
+        vars:
+          TTL_FOLDER: /data/ttl/images
+          TEMP_FOLDER: /data/temp
+          GRAPH: GRAPH_IMAGES
+
+  ingest-observations:
+    desc: Ingest the observation data into a named graph via the specified SPARQL Graph Store endpoint
+    sources:
+      - /data/ttl/observations/*.ttl
+      - /dotenv/.env
+    cmds:
+      - task: ingest-data
+        vars:
+          TTL_FOLDER: /data/ttl/observations
+          TEMP_FOLDER: /data/temp
+          GRAPH: GRAPH_OBSERVATIONS
         
 
   retrieve-data:
@@ -38,15 +58,7 @@ tasks:
     cmds:
       - python retrieve-smapshot-data.py
 
-  prepare-image-mapping:
-    desc: Compare the retrieved XML files with the mapped TTL files and copy all unconverted XML files to a temporary folder.
-    vars:
-      INPUT_FOLDER: /data/xml/images
-      OUTPUT_FOLDER: /data/ttl/images
-      TEMP_FOLDER: /data/temp/images
-    sources:
-      - /data/xml/images/*.xml
-      - /data/ttl/images/*.ttl
+  prepare-mapping:
     cmds:
       - rm -rf {{.TEMP_FOLDER}}
       - mkdir -p {{.TEMP_FOLDER}}
@@ -58,13 +70,32 @@ tasks:
           fi
         done
 
+  prepare-image-mapping:
+    desc: Compare the retrieved XML files with the mapped TTL files and copy all unconverted XML files to a temporary folder.
+    sources:
+      - /data/xml/images/*.xml
+      - /data/ttl/images/*.ttl
+    cmds:
+      - task: prepare-mapping
+        vars:
+          INPUT_FOLDER: /data/xml/images
+          OUTPUT_FOLDER: /data/ttl/images
+          TEMP_FOLDER: /data/temp/images
+
+  prepare-observation-mapping:
+    desc: Compare the retrieved XML files with the mapped TTL files and copy all unconverted XML files to a temporary folder.
+    sources:
+      - /data/xml/observations/*.xml
+      - /data/ttl/observations/*.ttl
+    cmds:
+      - task: prepare-mapping
+        vars:
+          INPUT_FOLDER: /data/xml/observations
+          OUTPUT_FOLDER: /data/ttl/observations
+          TEMP_FOLDER: /data/temp/observations
+
   perform-image-mapping:
     desc: Map Smapshot XML data in the temporary folder to CIDOC/RDF
-    vars:
-      INPUT_FOLDER: /data/temp/images
-      OUTPUT_FOLDER: /data/ttl/images
-      MAPPING_FILE: /mapping/mapping-smapshot-images.x3ml
-      BATCHSIZE: 1
     status:
       - test {{.INPUT_FOLDER}}/*.xml
     sources:
@@ -72,5 +103,31 @@ tasks:
       - /mapping/mapping-smapshot-images.x3ml
     generates:
       - /data/ttl/images/*.ttl
+    cmds:
+      - task: perform-mapping
+        vars:
+          INPUT_FOLDER: /data/temp/images
+          OUTPUT_FOLDER: /data/ttl/images
+          MAPPING_FILE: /mapping/mapping-smapshot-images.x3ml
+          BATCHSIZE: 1
+
+  perform-observation-mapping:
+    desc: Map Smapshot XML data in the temporary folder to CIDOC/RDF
+    status:
+      - test {{.INPUT_FOLDER}}/*.xml
+    sources:
+      - /data/temp/observations/*.xml
+      - /mapping/mapping-smapshot-observations.x3ml
+    generates:
+      - /data/ttl/observations/*.ttl
+    cmds:
+      - task: perform-mapping
+        vars:
+          INPUT_FOLDER: /data/temp/observations
+          OUTPUT_FOLDER: /data/ttl/observations
+          MAPPING_FILE: /mapping/mapping-smapshot-observations.x3ml
+          BATCHSIZE: 1
+
+  perform-mapping:
     cmds:
       - bash /pipeline/performMapping.sh -i {{.INPUT_FOLDER}} -o {{.OUTPUT_FOLDER}} -m {{.MAPPING_FILE}} -g {{.GENERATOR_POLICY}} -b {{.BATCHSIZE}}
