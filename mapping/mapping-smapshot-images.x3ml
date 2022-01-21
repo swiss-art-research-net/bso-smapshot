@@ -118,6 +118,28 @@
                     </target_node>
                 </range>
             </link>
+            <link>
+                <path>
+                    <source_relation>
+                        <relation>id</relation>
+                    </source_relation>
+                    <target_relation>
+                        <relationship>crm:P1_is_identified_by</relationship>
+                    </target_relation>
+                </path>
+                <range>
+                    <source_node>id</source_node>
+                    <target_node>
+                        <entity>
+                            <type>crm:E42_Identifier</type>
+                            <instance_generator name="Literal">
+                                <arg name="text" type="xpath">text()</arg>
+                                <arg name="language" type="constant"/>
+                            </instance_generator>
+                        </entity>
+                    </target_node>
+                </range>
+            </link>
         </mapping>
         <mapping>
             <domain>
