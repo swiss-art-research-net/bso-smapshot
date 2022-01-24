@@ -59,18 +59,20 @@ with open(config['imageMetaDataFile'], 'r') as f:
         imageMetaData.append(row)
 
 # Add coordinates in pixels to observations
-svgTemplate = Template("""<svg xmlns='http://www.w3.org/2000/svg'><path xmlns=\\"http://www.w3.org/2000/svg\\" d=\\"M${x0},${y0}l${halfW},0l0,0l${halfW},0l 0,${halfH}l 0,${halfH}l -${halfW},0l -${halfW},0l 0,-${halfH}z\\" data-paper-data=\\"{&quot;defaultStrokeValue&quot;:1,&quot;editStrokeValue&quot;:5,&quot;currentStrokeValue&quot;:1,&quot;rotation&quot;:0,&quot;deleteIcon&quot;:null,&quot;rotationIcon&quot;:null,&quot;group&quot;:null,&quot;editable&quot;:true,&quot;annotation&quot;:null}\\" id=\\"rectangle_e880ad36-1fef-4ce3-835d-716ba7db628a\\" fill-opacity=\\"0\\" fill=\\"#00bfff\\" fill-rule=\\"nonzero\\" stroke=\\"#00bfff\\" stroke-width=\\"4.04992\\" stroke-linecap=\\"butt\\" stroke-linejoin=\\"miter\\" stroke-miterlimit=\\"10\\" stroke-dasharray=\\"\\" stroke-dashoffset=\\"0\\" font-family=\\"none\\" font-weight=\\"none\\" font-size=\\"none\\" text-anchor=\\"none\\" style=\\"mix-blend-mode: normal\\"/></svg>""")
+svgTemplate = Template("""<svg xmlns='http://www.w3.org/2000/svg'><path xmlns="http://www.w3.org/2000/svg" d="M${x0},${y0}l${halfW},0l0,0l${halfW},0l 0,${halfH}l 0,${halfH}l -${halfW},0l -${halfW},0l 0,-${halfH}z" data-paper-data="{&quot;defaultStrokeValue&quot;:1,&quot;editStrokeValue&quot;:5,&quot;currentStrokeValue&quot;:1,&quot;rotation&quot;:0,&quot;deleteIcon&quot;:null,&quot;rotationIcon&quot;:null,&quot;group&quot;:null,&quot;editable&quot;:true,&quot;annotation&quot;:null}" id="rectangle_e880ad36-1fef-4ce3-835d-716ba7db628a" fill-opacity="0" fill="#00bfff" fill-rule="nonzero" stroke="#00bfff" stroke-width="4.04992" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"/></svg>""")
 
 for observation in observations:
     iiifUrl = observation['image']['media']['tiles']['url'][:-10]
     observation['iiifUrl'] = iiifUrl
     if observation['coord_x']:
         imageData = imageMetaData[imageMetaDataKeys[iiifUrl]]
+        multiplierX = imageData['width']
+        multiplierY = imageData['width'] # OpenSeaDragen returns y coordinates in relation to ratio of image, therefore the multiplier for vertical coordinates is the same as for horizontal coordinates
         coordinates_pixel = {
-            'x': int(float(observation['coord_x']) * imageData['width']),
-            'y': int(float(observation['coord_y']) * imageData['height']),
-            'width': int(float(observation['width']) * imageData['width']),
-            'height': int(float(observation['height']) * imageData['height']),
+            'x': int(float(observation['coord_x']) * multiplierX),
+            'y': int(float(observation['coord_y']) * multiplierY),
+            'width': int(float(observation['width']) * multiplierX),
+            'height': int(float(observation['height']) * multiplierY),
         }
         observation['coordinates_pixel'] = coordinates_pixel
         observation['svg_path'] = svgTemplate.substitute(x0=coordinates_pixel['x'], y0=coordinates_pixel['y'], halfW=coordinates_pixel['width']/2, halfH=coordinates_pixel['height']/1)
