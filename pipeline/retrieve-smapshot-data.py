@@ -75,7 +75,7 @@ for observation in observations:
             'height': int(float(observation['height']) * multiplierY),
         }
         observation['coordinates_pixel'] = coordinates_pixel
-        observation['svg_path'] = svgTemplate.substitute(x0=coordinates_pixel['x'], y0=coordinates_pixel['y'], halfW=coordinates_pixel['width']/2, halfH=coordinates_pixel['height']/1)
+        observation['svg_path'] = svgTemplate.substitute(x0=coordinates_pixel['x'], y0=coordinates_pixel['y'], halfW=coordinates_pixel['width']/2, halfH=coordinates_pixel['height']/2)
         
 # Write observation data to individual files
 for observation in observations:
