@@ -26,7 +26,7 @@
                 <source_node>/root</source_node>
                 <target_node>
                     <entity>
-                        <type>crm:E73_Information_Object</type>
+                        <type>crm:E13_Attribute_Assignment</type>
                         <type>oa:annotation</type>
                         <instance_generator name="ObservationUri">
                             <arg name="id" type="xpath">id/text()</arg>
@@ -47,7 +47,7 @@
                                 </if>
                             </not>
                         </if>
-                        <relationship>crm:P129_is_about</relationship>
+                        <relationship>crm:P140_assigned_attribute_to</relationship>
                     </target_relation>
                 </path>
                 <range>
@@ -71,7 +71,7 @@
                         <if>
                             <exists/>
                         </if>
-                        <relationship>crm:P129_is_about</relationship>
+                        <relationship>crm:P140_assigned_attribute_to</relationship>
                     </target_relation>
                 </path>
                 <range>
@@ -144,28 +144,6 @@
                         <relation>observation</relation>
                     </source_relation>
                     <target_relation>
-                        <relationship>rdfs:label</relationship>
-                    </target_relation>
-                </path>
-                <range>
-                    <source_node>observation</source_node>
-                    <target_node>
-                        <entity>
-                            <type>rdfs:Literal</type>
-                            <instance_generator name="Literal">
-                                <arg name="text" type="xpath">text()</arg>
-                                <arg name="language" type="constant"/>
-                            </instance_generator>
-                        </entity>
-                    </target_node>
-                </range>
-            </link>
-            <link>
-                <path>
-                    <source_relation>
-                        <relation>observation</relation>
-                    </source_relation>
-                    <target_relation>
                         <relationship>oa:body</relationship>
                     </target_relation>
                 </path>
@@ -173,10 +151,9 @@
                     <source_node>observation</source_node>
                     <target_node>
                         <entity>
-                            <type>rdfs:Literal</type>
-                            <instance_generator name="Literal">
-                                <arg name="text" type="xpath">text()</arg>
-                                <arg name="language" type="constant"/>
+                            <type>crm:E73_Information_Object</type>
+                            <instance_generator name="ObservationBodyUri">
+                                <arg name="id" type="xpath">../id/text()</arg>
                             </instance_generator>
                         </entity>
                     </target_node>
@@ -188,13 +165,6 @@
                         <relation>date_created</relation>
                     </source_relation>
                     <target_relation>
-                        <relationship>crm:P94i_was_created_by</relationship>
-                        <entity>
-                            <type>crm:E65_Creation</type>
-                            <instance_generator name="ObservationCreationUri">
-                                <arg name="id" type="xpath">../id/text()</arg>
-                            </instance_generator>
-                        </entity>
                         <relationship>crm:P4_has_time-span</relationship>
                         <entity>
                             <type>crm:E52_Time-Span</type>
@@ -223,13 +193,6 @@
                         <relation>volunteer</relation>
                     </source_relation>
                     <target_relation>
-                        <relationship>crm:P94i_was_created_by</relationship>
-                        <entity>
-                            <type>crm:E65_Creation</type>
-                            <instance_generator name="ObservationCreationUri">
-                                <arg name="id" type="xpath">../id/text()</arg>
-                            </instance_generator>
-                        </entity>
                         <relationship>crm:P14_carried_out_by</relationship>
                     </target_relation>
                 </path>
@@ -245,6 +208,27 @@
                                 <arg name="text" type="xpath">username/text()</arg>
                                 <arg name="language" type="constant"/>
                             </label_generator>
+                        </entity>
+                    </target_node>
+                </range>
+            </link>
+            <link>
+                <path>
+                    <source_relation>
+                        <relation>observation</relation>
+                    </source_relation>
+                    <target_relation>
+                        <relationship>crm:P141_assigned</relationship>
+                    </target_relation>
+                </path>
+                <range>
+                    <source_node>observation</source_node>
+                    <target_node>
+                        <entity>
+                            <type>crm:E73_Information_Object</type>
+                            <instance_generator name="ObservationBodyUri">
+                                <arg name="id" type="xpath">../id/text()</arg>
+                            </instance_generator>
                         </entity>
                     </target_node>
                 </range>
@@ -373,5 +357,42 @@
                 </range>
             </link>
         </mapping>
+        <mapping>
+            <domain>
+                <source_node>/root/observation</source_node>
+                <target_node>
+                    <entity>
+                        <type>crm:E73_Information_Object</type>
+                        <instance_generator name="ObservationBodyUri">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </domain>
+            <link>
+                <path>
+                    <source_relation>
+                        <relation>.</relation>
+                    </source_relation>
+                    <target_relation>
+                        <relationship>rdfs:label</relationship>
+                    </target_relation>
+                </path>
+                <range>
+                    <source_node>.</source_node>
+                    <target_node>
+                        <entity>
+                            <type>rdfs:Literal</type>
+                            <instance_generator name="Literal">
+                                <arg name="text" type="xpath">text()</arg>
+                                <arg name="language" type="constant"/>
+                            </instance_generator>
+                        </entity>
+                    </target_node>
+                </range>
+            </link>
+        </mapping>
     </mappings>
+
+
 </x3ml>

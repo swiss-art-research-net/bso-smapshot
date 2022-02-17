@@ -11,6 +11,10 @@
 		<pattern>smapshot/observation/{id}</pattern>
 	</generator>
 
+	<generator name="ObservationBodyUri" prefix="sari">
+		<pattern>smapshot/observation/{id}/body</pattern>
+	</generator>
+
 	<generator name="ObservationCreationUri" prefix="sari">
 		<pattern>smapshot/observation/{id}/creation</pattern>
 	</generator>
