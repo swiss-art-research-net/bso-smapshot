@@ -31,6 +31,10 @@
                         <instance_generator name="ObservationUri">
                             <arg name="id" type="xpath">id/text()</arg>
                         </instance_generator>
+                        <label_generator name="Literal">
+                            <arg name="text" type="xpath">concat((if (coord_x/text()) then "Region" else "Image")," annotation by ", volunteer/username/text(), " imported from sMapshot")</arg>
+                            <arg name="language" type="constant">en</arg>
+                        </label_generator>
                     </entity>
                 </target_node>
             </domain>
@@ -393,6 +397,4 @@
             </link>
         </mapping>
     </mappings>
-
-
 </x3ml>
