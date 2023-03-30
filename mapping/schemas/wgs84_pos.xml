@@ -176,6 +176,12 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
  <rdfs:comment>The WGS84 longitude of a SpatialThing (decimal degrees).</rdfs:comment>
 </rdf:Property>
 
+<rdf:Property rdf:about="http://www.bigdata.com/rdf/geospatial/literals/v1#lat-lon">
+ <rdfs:domain rdf:resource="http://www.bigdata.com/rdf/geospatial/literals/v1" />
+ <rdfs:label>geolatlong</rdfs:label>
+ <rdfs:comment>The Geospatial representation of latitude longitude pairs.</rdfs:comment>
+</rdf:Property>
+
 <rdf:Property rdf:about="http://www.w3.org/2003/01/geo/wgs84_pos#alt">
  <rdfs:domain rdf:resource="http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing" />
  <rdfs:label>altitude</rdfs:label>

@@ -13,11 +13,13 @@ tasks:
     cmds:
     - task: retrieve-data
     - task: prepare-image-mapping
+    - task: add-geospatial
     - task: perform-image-mapping
     - task: prepare-observation-mapping
     - task: perform-observation-mapping
     - task: ingest-images
     - task: ingest-observations
+
 
   ingest-data:
     cmds:
@@ -57,6 +59,11 @@ tasks:
     desc: Download the detailed data for all validated images and observations in the SARI/BSO collection into the `/data/*` folders. The data is converted to XML for later mapping using the X3ML Mapping Engine.
     cmds:
       - python retrieve-smapshot-data.py
+    
+  add-geospatial:
+    desc: Add geospatial string of latitude, longitude pair.
+    cmds:
+      - python add-geospatial-latlong.py
 
   prepare-mapping:
     cmds:

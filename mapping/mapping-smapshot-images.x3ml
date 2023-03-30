@@ -18,6 +18,7 @@
         <namespace prefix="wd" uri="http://www.wikidata.org/entity/"/>
         <namespace prefix="iqvoc" uri="https://iqvoc.swissartresearch.net/"/>
         <namespace prefix="wgs84" uri="http://www.w3.org/2003/01/geo/wgs84_pos#"/>
+        <namespace prefix="geoliteral" uri="http://www.bigdata.com/rdf/geospatial/literals/v1#"/>
     </namespaces>
     <mappings>
         <mapping>
@@ -260,6 +261,27 @@
                     <target_node>
                         <entity>
                             <type>wgs84:long</type>
+                            <instance_generator name="typedLiteralGen">
+                                <arg name="text" type="xpath">text()</arg>
+                            </instance_generator>
+                        </entity>
+                    </target_node>
+                </range>
+            </link>
+            <link>
+                <path>
+                    <source_relation>
+                        <relation>geolatlong</relation>
+                    </source_relation>
+                    <target_relation>
+                        <relationship>crm:P168_place_is_defined_by</relationship>
+                    </target_relation>
+                </path>
+                <range>
+                    <source_node>geolatlong</source_node>
+                    <target_node>
+                        <entity>
+                            <type>geoliteral:lat-lon</type>
                             <instance_generator name="typedLiteralGen">
                                 <arg name="text" type="xpath">text()</arg>
                             </instance_generator>
