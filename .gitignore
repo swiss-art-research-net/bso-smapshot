@@ -7,3 +7,4 @@ notebooks/
 __pycache__
 docker-compose.override.yml
 pipeline/.task
+archive/

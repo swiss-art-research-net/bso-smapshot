@@ -13,7 +13,6 @@ tasks:
     cmds:
     - task: retrieve-data
     - task: prepare-image-mapping
-    - task: add-geospatial
     - task: perform-image-mapping
     - task: prepare-observation-mapping
     - task: perform-observation-mapping

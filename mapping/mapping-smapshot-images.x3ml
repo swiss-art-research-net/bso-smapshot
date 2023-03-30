@@ -271,19 +271,19 @@
             <link>
                 <path>
                     <source_relation>
-                        <relation>geolatlong</relation>
+                        <relation>.</relation>
                     </source_relation>
                     <target_relation>
                         <relationship>crm:P168_place_is_defined_by</relationship>
                     </target_relation>
                 </path>
                 <range>
-                    <source_node>geolatlong</source_node>
+                    <source_node>.</source_node>
                     <target_node>
-                        <entity>
+                        <entity variable="geolatlong">
                             <type>geoliteral:lat-lon</type>
                             <instance_generator name="typedLiteralGen">
-                                <arg name="text" type="xpath">text()</arg>
+                                <arg name="text" type="xpath">concat(latitude/text(), '#', longitude/text())</arg>
                             </instance_generator>
                         </entity>
                     </target_node>
