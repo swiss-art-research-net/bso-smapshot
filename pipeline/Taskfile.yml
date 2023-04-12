@@ -19,7 +19,6 @@ tasks:
     - task: ingest-images
     - task: ingest-observations
 
-
   ingest-data:
     cmds:
       - |
